@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.imp.runtime.languageDescription">
+      <language
+            extensions="java"
+            description="Java"
+            language="java">
+      </language>
+   </extension>
+   <extension
+         point="org.eclipse.imp.xform.astAdapter">
+      <astAdapter
+            class="org.eclipse.imp.java.matching.PolyglotASTAdapter"
+            language="Java">
+      </astAdapter>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.parser">
+      <parser
+            class="org.eclipse.imp.java.parser.JavaParseController"
+            language="java">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.tokenColorer">
+      <tokenColorer
+            class="org.eclipse.imp.java.tokenColorer.JavaTokenColorer"
+            language="java">
+      </tokenColorer>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.outliner">
+      <outliner
+            class="org.eclipse.imp.java.outliner.JavaOutliner"
+            language="java">
+      </outliner>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.referenceResolvers">
+      <referenceResolver
+            class="org.eclipse.imp.java.resolution.JavaReferenceResolver"
+            language="java">
+      </referenceResolver>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.foldingUpdater">
+      <foldingUpdater
+            class="org.eclipse.imp.java.foldingUpdater.JavaFoldingUpdater"
+            language="java">
+      </foldingUpdater>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.documentationProvider">
+      <docProvider
+            class="org.eclipse.imp.java.resolution.DocumentationProvider"
+            language="java">
+      </docProvider>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.refactoringContributions">
+      <refactoringContributor
+            class="org.eclipse.imp.java.refactoring.RefactoringContributor"
+            language="java">
+      </refactoringContributor>
+   </extension>
+
+   <extension
+         point="org.eclipse.imp.pdb.analyzerFactory">
+      <analyzerFactory
+            class="org.eclipse.imp.java.analysis.JavaFactGeneratorFactory"
+            name="Java Fact Generator">
+            <signatureDescriptor>
+                <outputs>
+                    <typeDescriptor typeName="org.eclipse.imp.java.implementsHierarchy"/>
+                    <typeDescriptor typeName="org.eclipse.imp.java.extendsHierarchy"/>
+                </outputs>
+            </signatureDescriptor>
+      </analyzerFactory>
+   </extension>
+   <extension
+         point="org.eclipse.imp.formatting.formattingSpecification">
+      <formattingSpecification
+            astAdapter="org.eclipse.imp.java.formatting.parser.ASTAdapter"
+            file="org/eclipse/imp/java/formatting/java.fsp"
+            language="java"
+            parseController="org.eclipse.imp.java.formatting.parser.JavaFormattingParseController"/>
+   </extension>
+</plugin>

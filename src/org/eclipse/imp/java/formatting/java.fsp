@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<formatter>
+<language>java</language>
+<rules>
+<separator>Method invocations</separator>
+<rule>
+<box>H hs=0 [ "${MethodName}" "(" ")" ]</box>
+<preview>${MethodName}()
+</preview>
+</rule>
+<rule>
+<box>H hs=0 ["${MethodName}" "(" "${ArgumentList}" ")" ]</box>
+<preview>${MethodName}(${ArgumentList})
+</preview>
+</rule>
+<separator>Top-level entities</separator>
+<rule>
+<box>V ["${ImportDeclarations}" "${ImportDeclaration}" ]</box>
+<preview>${ImportDeclarations}
+${ImportDeclaration}
+</preview>
+</rule>
+<rule>
+<box>H hs=0 ["${TypeName}" "." "${IDENTIFIER}" ]</box>
+<preview>${TypeName}.${IDENTIFIER}
+</preview>
+</rule>
+<rule>
+<box>H ["import" H hs=0 [ "${TypeName}" ";" ] ]</box>
+<preview>import ${TypeName};
+</preview>
+</rule>
+<rule>
+<box>H hs=0 ["${PackageName}" "." "${IDENTIFIER}" ]</box>
+<preview>${PackageName}.${IDENTIFIER}
+</preview>
+</rule>
+<rule>
+<box>H ["package" H hs=0 [ "${PackageName}"  ";" ] ]</box>
+<preview>package ${PackageName};
+</preview>
+</rule>
+<separator>Control constructs</separator>
+<rule>
+<box>V [ H [ "if" H hs=0 [ "(" "${Expression}" ")" ] "{" ] I is=$blockIndent [ "${BlockStatements}" ] "}" ]</box>
+<preview>if (${Expression}) {
+    ${BlockStatements}
+}
+</preview>
+</rule>
+</rules>
+<space-options>
+<space-option name="$blockIndent" value="4"/>
+</space-options>
+<example>package org.eclipse.imp.formatting.wizards;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.imp.formatting.Activator;
+import org.eclipse.imp.runtime.RuntimePlugin;
+import org.eclipse.imp.wizards.ExtensionPointEnabler;
+import org.eclipse.imp.wizards.ExtensionPointWizard;
+import org.eclipse.imp.wizards.ExtensionPointWizardPage;
+import org.eclipse.imp.wizards.WizardUtilities;
+public
+class
+NewFormattingSpecification
+extends ExtensionPointWizard
+{
+   private
+      String
+      fSpecFilename
+   ; public void addPages ( ) {
+                                 if (true) {
+                                     doStuff() ;
+                                 } addPages(new
+                                            ExtensionPointWizardPage
+                                            [ ]
+                                            {
+                                               new
+                                                  NewFormattingSpecificationWizardPage
+                                                  (
+                                                  this
+                                               )
+                                            }) ;
+                              } protected
+                                List
+                                getPluginDependencies ( ) {
+                                                             return
+                                                                Arrays . asList(new
+                                                                                String
+                                                                                [ ]
+                                                                                {
+                                                                                   "org.eclipse.core.runtime" , "org.eclipse.core.resources" , "org.eclipse.imp.runtime" , "org.eclipse.imp.formatting"
+                                                                                })
+                                                             ;
+                                                          } private
+                                                            class
+                                                            NewFormattingSpecificationWizardPage
+                                                            extends ExtensionPointWizardPage
+                                                            {
+                                                               public
+                                                               NewFormattingSpecificationWizardPage
+                                                                  (
+                                                                  ExtensionPointWizard owner
+                                                               )
+                                                               {
+                                                                  super
+                                                                     (
+                                                                     owner , Activator . kPluginID , "formattingSpecification"
+                                                                     )
+                                                                  ;
+                                                               }
+                                                            } @ Override public boolean canFinish ( ) {
+                                                                                                         if (! fileFieldIsValid()) {
+                                                                                                             pages
+                                                                                                                [
+                                                                                                                0
+                                                                                                             ]
+                                                                                                             .
+                                                                                                             setErrorMessage
+                                                                                                             (
+                                                                                                             "File name should end with \".fsp\""
+                                                                                                             ) ; return false ;
+                                                                                                         } return
+                                                                                                              super
+                                                                                                                 .
+                                                                                                                 canFinish
+                                                                                                                 (
+                                                                                                              )
+                                                                                                           ;
+                                                                                                      } protected void collectCodeParms ( ) {
+                                                                                                                                               fSpecFilename = pages
+                                                                                                                                                                  [
+                                                                                                                                                                  0
+                                                                                                                                                               ]
+                                                                                                                                                               .
+                                                                                                                                                               getValue
+                                                                                                                                                               (
+                                                                                                                                                               "file"
+                                                                                                                                                               ) ; fLanguageName = pages
+                                                                                                                                                                                      [
+                                                                                                                                                                                      0
+                                                                                                                                                                                   ]
+                                                                                                                                                                                   .
+                                                                                                                                                                                   getValue
+                                                                                                                                                                                   (
+                                                                                                                                                                                   "language"
+                                                                                                                                                                                   ) ; fProject = pages
+                                                                                                                                                                                                     [
+                                                                                                                                                                                                     0
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                                  .
+                                                                                                                                                                                                  getProjectBasedOnNameField
+                                                                                                                                                                                                  (
+                                                                                                                                                                                                  ) ;
+                                                                                                                                            } @ Override protected
+                                                                                                                                              void
+                                                                                                                                              generateCodeStubs
+                                                                                                                                                 (
+                                                                                                                                                 IProgressMonitor mon
+                                                                                                                                              )
+                                                                                                                                              throws CoreException {
+                                                                                                                                                                      Map &lt;
+                                                                                                                                                                             String , String
+                                                                                                                                                                          &gt; subs = getStandardSubstitutions() ; WizardUtilities . createFileFromTemplate(fSpecFilename , Activator . kPluginID , "formatter.fsp" , "" , getProjectSourceLocation(fProject) , subs , fProject , new
+                                                                                                                                                                                                                                                                                                                                                                                  NullProgressMonitor
+                                                                                                                                                                                                                                                                                                                                                                                  (
+                                                                                                                                                                                                                                                                                                                                                                               )) ; ExtensionPointEnabler . enable(fProject , RuntimePlugin . IMP_RUNTIME , "formatter" , new
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          String
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          [ ] [ ]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                             {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                "extension:id" , fProject . getName() + ".formatter"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                             } , {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "extension:name" , fLanguageName + " Formatter"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 } , {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "formatter:class" , "org.eclipse.imp.formatting.SourceFormatter"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } , {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "formatter:language" , fLanguageName
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          } , false , getPluginDependencies() , new
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   NullProgressMonitor
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   (
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                )) ;
+                                                                                                                                                                   } protected
+                                                                                                                                                                     Map &lt;
+                                                                                                                                                                            String , String
+                                                                                                                                                                         &gt;
+                                                                                                                                                                     getStandardSubstitutions ( ) {
+                                                                                                                                                                                                     Map &lt;
+                                                                                                                                                                                                            String , String
+                                                                                                                                                                                                         &gt; result = new
+                                                                                                                                                                                                                       HashMap &lt;
+                                                                                                                                                                                                                                  String , String
+                                                                                                                                                                                                                               &gt;
+                                                                                                                                                                                                                       (
+                                                                                                                                                                                                                    ) ; result . put("$LANGUAGE_NAME$" , fLanguageName) ; return result ;
+                                                                                                                                                                                                  } private boolean fileFieldIsValid ( ) {
+                                                                                                                                                                                                                                            final
+                                                                                                                                                                                                                                            String
+                                                                                                                                                                                                                                            text = pages
+                                                                                                                                                                                                                                                      [
+                                                                                                                                                                                                                                                      0
+                                                                                                                                                                                                                                                   ]
+                                                                                                                                                                                                                                                   .
+                                                                                                                                                                                                                                                   getField
+                                                                                                                                                                                                                                                   (
+                                                                                                                                                                                                                                                   "file"
+                                                                                                                                                                                                                                                   ) . fText
+                                                                                                                                                                                                                                                   .
+                                                                                                                                                                                                                                                   getText
+                                                                                                                                                                                                                                                   (
+                                                                                                                                                                                                                                                   ) ; return
+                                                                                                                                                                                                                                                          text == null || text . length() == 0 || text . endsWith(".fsp")
+                                                                                                                                                                                                                                                       ;
+                                                                                                                                                                                                                                         }
+}
+</example>
+</formatter>
