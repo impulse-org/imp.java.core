@@ -43,7 +43,6 @@ import org.eclipse.imp.pdb.facts.db.FactKey;
 import org.eclipse.imp.pdb.facts.db.IFactContext;
 import org.eclipse.imp.pdb.facts.db.context.ISourceEntityContext;
 import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
-import org.eclipse.imp.pdb.facts.type.FactTypeError;
 import org.eclipse.imp.pdb.facts.type.Type;
 import org.eclipse.imp.utils.StreamUtils;
 
@@ -161,7 +160,7 @@ public class JavaTypeExtractor implements IFactGenerator {
         extractTypeRelations(astRoot);
     }
 
-    private void extractTypeRelations(SourceFile astRoot) throws FactTypeError {
+    private void extractTypeRelations(SourceFile astRoot) {
         if (astRoot == null) {
             System.out.println("Hey, no tree");
             return;
