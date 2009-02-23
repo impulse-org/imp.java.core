@@ -2,9 +2,8 @@ package org.eclipse.imp.java.analysis;
 
 import org.eclipse.imp.pdb.analysis.IFactGenerator;
 import org.eclipse.imp.pdb.analysis.IFactGeneratorFactory;
-import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
-import org.eclipse.imp.pdb.facts.type.TypeFactory;
+import org.eclipse.imp.pdb.facts.type.TypeStore;
 
 public class JavaFactGeneratorFactory implements IFactGeneratorFactory {
 
@@ -19,8 +18,7 @@ public class JavaFactGeneratorFactory implements IFactGeneratorFactory {
         return "Java Fact Generator Factory";
     }
     
-    public void declareTypes(TypeFactory factory) {
-        // this initializes the static values in JavaAnalysisTypes
-        JavaAnalysisTypes.JavaClassHierarchyType.getTypeDescriptor(ValueFactory.getInstance());
+    public TypeStore declareTypes() {
+    	return JavaAnalysisTypes.javaAnalysisTypes;
     }
 }
