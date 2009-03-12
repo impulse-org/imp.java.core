@@ -174,7 +174,7 @@ public class PolyglotASTAdapter extends ASTAdapterBase implements ILanguageServi
                     JPGPosition pos= (JPGPosition) n.position();
 
                     // Hmmm... some nodes (like Call_c) occasionally have a null position()...
-                    if (pos == null || matchStartPos < pos.getLeftIToken().getOffset()) {
+                    if (pos == null || matchStartPos < pos.getLeftIToken().getStartOffset()) {
                 	MatchResult m= matcher.match(n);
 
                 	if (m != null) {
@@ -219,13 +219,13 @@ public class PolyglotASTAdapter extends ASTAdapterBase implements ILanguageServi
     public int getOffset(Object astNode) {
 	Node node= (Node) astNode;
 
-	return ((JPGPosition) node.position()).getLeftIToken().getOffset();
+	return ((JPGPosition) node.position()).getLeftIToken().getStartOffset();
     }
 
     public int getLength(Object astNode) {
 	Node node= (Node) astNode;
 
-	return ((JPGPosition) node.position()).getRightIToken().getEndOffset() - ((JPGPosition) node.position()).getLeftIToken().getOffset() + 1;
+	return ((JPGPosition) node.position()).getRightIToken().getEndOffset() - ((JPGPosition) node.position()).getLeftIToken().getStartOffset() + 1;
     }
 
     public String lookupSimpleNodeType(String simpleName) {
