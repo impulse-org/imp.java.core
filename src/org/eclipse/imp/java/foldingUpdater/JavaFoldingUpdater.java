@@ -98,13 +98,13 @@ public class JavaFoldingUpdater extends FolderBase {
     }
 
     public void sendVisitorToAST(HashMap newAnnotations, List annotations, Object ast) {
-        prsStream = ((JavaParseController) parseController).getParser().getParseStream();
-        lexStream = prsStream.getLexStream();
+        prsStream = ((JavaParseController) parseController).getParser().getIPrsStream();
+        lexStream = prsStream.getILexStream();
 
         Node theAST= (Node) ast;
-	NodeVisitor abstractVisitor= getVisitor();
+        NodeVisitor abstractVisitor= getVisitor();
 
-	theAST.visit(abstractVisitor);
+        theAST.visit(abstractVisitor);
         foldImports(ast);
         foldMultilineComments();
     }
