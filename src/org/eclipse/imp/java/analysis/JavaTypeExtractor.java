@@ -155,7 +155,7 @@ public class JavaTypeExtractor implements IFactGenerator {
             public void clearMessages() { }
         };
         fParseController.initialize(path.removeFirstSegments(srcProject.getRawProject().getLocation().segmentCount()), srcProject, mh);
-        SourceFile astRoot= (SourceFile) fParseController.parse(contents, false, new NullProgressMonitor());
+        SourceFile astRoot= (SourceFile) fParseController.parse(contents, new NullProgressMonitor());
 
         extractTypeRelations(astRoot);
     }
