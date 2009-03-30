@@ -19,10 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.imp.java.JavaCorePlugin;
 import org.eclipse.imp.java.resolution.PolyglotNodeLocator;
 import org.eclipse.imp.model.ISourceProject;
-import org.eclipse.imp.parser.ILexer;
 import org.eclipse.imp.parser.IMessageHandler;
 import org.eclipse.imp.parser.IParseController;
-import org.eclipse.imp.parser.IParser;
 import org.eclipse.imp.parser.ISourcePositionLocator;
 import org.eclipse.imp.parser.SimpleLPGParseController;
 import org.eclipse.imp.services.ILanguageSyntaxProperties;
@@ -47,8 +45,6 @@ import polyglot.util.SilentErrorQueue;
 
 public class JavaParseController extends SimpleLPGParseController implements IParseController {
     private IJavaProject fJavaProject;
-    private JavaParser fParser;
-    private JavaLexer fLexer;
     private JavaExtensionInfo fExtInfo;
 
     public JavaParseController() {
@@ -59,14 +55,6 @@ public class JavaParseController extends SimpleLPGParseController implements IPa
         super.initialize(filePath, project, handler);
         if (project != null)
             this.fJavaProject= JavaCore.create(project.getRawProject());
-    }
-
-    public IParser getParser() {
-        return fParser;
-    }
-
-    public ILexer getLexer() {
-        return fLexer;
     }
 
     public ISourcePositionLocator getSourcePositionLocator() {
@@ -203,8 +191,8 @@ public class JavaParseController extends SimpleLPGParseController implements IPa
             try {
                 fLexer= new JavaLexer(source.path());
                 fParser= new JavaParser(fLexer.getILexStream(), ts, nf, source, eq); // Create the parser
-                fLexer.lexer(fParser.getIPrsStream());
-                return fParser;
+                fLexer.lexer(null, fParser.getIPrsStream());
+                return (Parser) fParser;
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new IllegalStateException(e.getMessage());
