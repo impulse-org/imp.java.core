@@ -1,49 +1,18 @@
 package org.eclipse.imp.java.formatting.parser;
 
-import java.util.Map;
-
 import lpg.runtime.IAst;
-import lpg.runtime.IToken;
 
 import org.eclipse.imp.java.formatting.parser.JavaParser.AbstractAstList;
-import org.eclipse.imp.services.IASTAdapter;
+import org.eclipse.imp.services.base.LPGASTMatchAdapterBase;
 
-public class ASTAdapter implements IASTAdapter, JavaParsersym {
-	public boolean isList(Object astNode) {
-		return astNode instanceof AbstractAstList;
-	}
-
-	public Object[] getChildren(Object astNode) {
-		return ((IAst) astNode).getChildren().toArray();
-	}
-
-	public int getOffset(Object astNode) {
-		return ((IAst) astNode).getLeftIToken().getStartOffset();
-	}
-
-	public int getLength(Object astNode) {
-		IAst ast = (IAst) astNode;
-		IToken left = ast.getLeftIToken();
-		IToken right = ast.getRightIToken();
-
-		// special case for epsilon trees
-		if (left.getTokenIndex() > right.getTokenIndex()) {
-			return 0;
-		} else {
-			int start = left.getStartOffset();
-			int end = right.getEndOffset();
-			return end - start + 1;
-		}
-	}
-
-	public String getTypeOf(Object astNode) {
-		return astNode.getClass().getName();
-	}
+public class ASTAdapter extends LPGASTMatchAdapterBase implements JavaParsersym {
+    public ASTAdapter() {
+        super(AbstractAstList.class);
+    }
 
 	public boolean isMetaVariable(Object astNode) {
 		IAst ast = (IAst) astNode;
 		if (ast.getChildren().size() == 0) {
-			int k = ast.getLeftIToken().getKind();
 			String tokStr = ast.getLeftIToken().toString();
 
 			if (tokStr.startsWith("${") && tokStr.endsWith("}")) {
@@ -68,62 +37,6 @@ public class ASTAdapter implements IASTAdapter, JavaParsersym {
 //				return false;
 //			}
 		}
-
 		return false;
-	}
-
-	public Object construct(String qualName, Object[] children) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object construct(String qualName, Object[] children, Map attribs) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getChildAtPosition(int pos, Object astNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getChildRoleAtPosition(int pos, String qualNodeType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getFile(Object astNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getMetaVariableName(Object astNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int getPositionOfChildRole(String roleName, String qualNodeType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Object getValue(String attributeName, Object astNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean isInstanceOfType(Object astNode, String typeName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isSubTypeOf(String maybeSuper, String maybeSub) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public String lookupSimpleNodeType(String simpleName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
