@@ -69,7 +69,7 @@ public class JavaParseController extends SimpleLPGParseController implements IPa
         return fLexer;
     }
 
-    public ISourcePositionLocator getNodeLocator() {
+    public ISourcePositionLocator getSourcePositionLocator() {
         return new PolyglotNodeLocator(fLexer.getILexStream());
     }
 
@@ -217,7 +217,7 @@ public class JavaParseController extends SimpleLPGParseController implements IPa
         }
     }
 
-    public Object parse(String contents, boolean scanOnly, IProgressMonitor monitor) {
+    public Object parse(String contents, IProgressMonitor monitor) {
         FileSource fileSource= null;
 
         try {

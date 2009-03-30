@@ -27,7 +27,7 @@ public class JavaFormattingParseController extends SimpleLPGParseController {
 		return fParser;
 	}
 
-	public ISourcePositionLocator getNodeLocator() {
+	public ISourcePositionLocator getSourcePositionLocator() {
 		// Never called
 		throw new UnsupportedOperationException("Someone called JavaFormattingParseController.getNodeLocator()?");
 	}
@@ -37,7 +37,7 @@ public class JavaFormattingParseController extends SimpleLPGParseController {
 		throw new UnsupportedOperationException("Someone called JavaFormattingParseController.getSyntaxProperties()?");
 	}
 
-	public Object parse(String contents, boolean scanOnly, IProgressMonitor monitor) {
+	public Object parse(String contents, IProgressMonitor monitor) {
 		PMMonitor my_monitor = new PMMonitor(monitor);
 		char[] contentsArray = contents.toCharArray();
 
