@@ -53,7 +53,7 @@ public class JavaTokenColorer extends TokenColorerBase implements JavaParsersym,
 
     public void setLanguage(String language) {}
 
-    public IRegion calculateDamageExtent(IRegion seed) {
+    public IRegion calculateDamageExtent(IRegion seed, IParseController ctlr) {
         return seed;
     }
 }
