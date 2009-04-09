@@ -425,7 +425,7 @@ public class JavaParser implements RuleAction, IParser, Parser
      * Report a fatal error then abort parsing.
      */
     public void die(Position pos) {
-        reportError(prsStream.ERROR_CODE, "Syntax error.", pos);
+        reportError(ParseErrorCodes.ERROR_CODE, "Syntax error.", pos);
     }
 
     /**
