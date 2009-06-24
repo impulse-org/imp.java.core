@@ -1,3 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.imp.java.core;singleton:=true
+Bundle-Name: IMP Java Core (Incubation)
+Bundle-Version: 0.1.1
+Bundle-Vendor: rfuhrer@watson.ibm.com
+Bundle-Activator: org.eclipse.imp.java.JavaCorePlugin
+Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -18,18 +26,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.imp.pdb.values,
  org.eclipse.compare,
  org.eclipse.imp.formatting
-Bundle-Activator: org.eclipse.imp.java.JavaCorePlugin
-Manifest-Version: 1.0
-Bundle-Vendor: rfuhrer@watson.ibm.com
-Bundle-Name: IMP Java Core (Incubation)
 Export-Package: org.eclipse.imp.java.foldingUpdater,
  org.eclipse.imp.java.matching,
  org.eclipse.imp.java.outliner,
  org.eclipse.imp.java.preferences,
  org.eclipse.imp.java.resolution,
  org.eclipse.imp.java.tokenColorer
-Bundle-Version: 0.1.1
-Bundle-ManifestVersion: 2
-Eclipse-LazyStart: true
-Bundle-Localization: plugin
-Bundle-SymbolicName: org.eclipse.imp.java.core;singleton:=true
