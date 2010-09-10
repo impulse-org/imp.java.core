@@ -44,6 +44,7 @@ import org.eclipse.imp.pdb.facts.db.IFactContext;
 import org.eclipse.imp.pdb.facts.db.context.ISourceEntityContext;
 import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
+import org.eclipse.imp.utils.ErrorIndicatorMessageHandler;
 import org.eclipse.imp.utils.StreamUtils;
 
 import polyglot.ast.ClassDecl;
@@ -146,14 +147,7 @@ public class JavaTypeExtractor implements IFactGenerator {
 
     private void processSourceFile(IPath path, InputStream is, ISourceProject srcProject) {
         String contents= StreamUtils.readStreamContents(is);
-        IMessageHandler mh= new IMessageHandler() {
-            public void startMessageGroup(String groupName) { }
-            public void endMessageGroup() { }
-            public void handleSimpleMessage(String msg, int startOffset, int endOffset, int startCol, int endCol, int startLine, int endLine) {
-                // hasError[0]= true;
-            }
-            public void clearMessages() { }
-        };
+        IMessageHandler mh= new ErrorIndicatorMessageHandler();
         fParseController.initialize(path.removeFirstSegments(srcProject.getRawProject().getLocation().segmentCount()), srcProject, mh);
         SourceFile astRoot= (SourceFile) fParseController.parse(contents, new NullProgressMonitor());
 
