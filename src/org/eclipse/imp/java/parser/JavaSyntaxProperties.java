@@ -1,9 +1,8 @@
 package org.eclipse.imp.java.parser;
 
-import org.eclipse.imp.services.ILanguageSyntaxProperties;
+import org.eclipse.imp.services.base.LanguageSyntaxPropertiesBase;
 
-public class JavaSyntaxProperties implements ILanguageSyntaxProperties {
-
+public class JavaSyntaxProperties extends LanguageSyntaxPropertiesBase {
     public String getBlockCommentStart() {
         return "/*";
     }
@@ -19,20 +18,4 @@ public class JavaSyntaxProperties implements ILanguageSyntaxProperties {
     public String getBlockCommentContinuation() {
         return "*";
     }
-
-    public String[][] getFences() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public int[] getIdentifierComponents(String ident) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getIdentifierConstituentChars() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
